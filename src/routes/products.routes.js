@@ -3,21 +3,20 @@ import {
   getAllProducts,
   getProductById,
   createProduct,
+  deleteProduct,
+  updateProduct
 } from "../controllers/product.controller.js";
 
-const routes = express.Router();
+const router = express.Router();
 
-routes.get("/products", getAllProducts);
+router.get("/products", getAllProducts);
 
-routes.get("/products/:id", getProductById);
+router.get("/products/:id", getProductById);
 
-// Query params (ej. /product?category=electronics&price=low)
-/* router.get("/product", (req, res) => {
-  const category = req.query.category;
-  const price = req.query.price;
-  res.send(`Categoría: ${category}, Precio: ${price}`);
-}); */
+router.post("/products/create", createProduct);
 
-routes.post("/product", createProduct);
+router.delete("/products/:id", deleteProduct);
 
-export default routes;
+router.put("/products/:id", updateProduct);
+
+export default router;

@@ -66,14 +66,12 @@ export function addProduct(producto) {
 }
 
 // Función para actualizar un producto existente
-export function updateProduct(producto) {
+export function updateProduct(id, producto ) {
   return new Promise(async (res, rej) => {
     try {
-      await updateDoc(doc(db, "products", producto.id), {
-        price: producto.price,
-      });
+      await updateDoc(doc(db, "products", id), {...producto});
       console.log("Producto actualizado: ", producto);
-      res(producto);
+      res({producto});
     } catch (error) {
       console.log(error);
       rej(error);
@@ -81,12 +79,13 @@ export function updateProduct(producto) {
   });
 }
 
+// Función para eliminar un producto por ID
 export function deleteProduct(id) {
   return new Promise(async (res, rej) => {
     try {
       await deleteDoc(doc(db, "products", id));
       console.log("Producto eliminado");
-      res();
+      res({ message: "Producto eliminado" });  
     } catch (error) {
       console.log(error);
       rej(error);

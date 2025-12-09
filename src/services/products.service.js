@@ -2,6 +2,8 @@ import {
   getProducts,
   getProduct,
   addProduct,
+  deleteProduct,
+  updateProduct,
 } from "../models/products.models.js";
 
 export const getAllProductsService = async () => {
@@ -28,7 +30,38 @@ export const getProductByIdService = async (id) => {
   });
 };
 
-export const createProductService = async (productData) => {
-  const { category, name, price } = productData;
-  return await addProduct(category, name, price);
+export const addProductService = async (productData) => {
+  return new Promise(async (res, rej) => {
+    try {
+      const newProduct = await addProduct(productData);
+      res(newProduct);
+    } catch (error) {
+      console.log(error);
+      rej(error);
+    }
+  });
+};
+
+export const deleteProductService = async (id) => {
+  return new Promise(async (res, rej) => {
+    try {
+      await deleteProduct(id);
+      res({ message: "Producto eliminado" });
+    } catch (error) {
+      console.log(error);
+      rej(error);
+    }
+  });
+};
+
+export const updateProductService = async (id, product) => {
+  return new Promise(async (res, rej) => {
+    try {
+      const updatedProduct = await updateProduct(id, product);
+      res(updatedProduct);
+    } catch (error) {
+      console.log(error);
+      rej(error);
+    }
+  });
 };
