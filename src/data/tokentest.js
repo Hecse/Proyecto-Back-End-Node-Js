@@ -1,9 +1,17 @@
 import jwt from "jsonwebtoken";
-import "dotenv/config";
+//import "dotenv/config";
+import dotenv from "dotenv";
+import path from "path";
+import { fileURLToPath } from "url";
 
-const secret_key = "token_proyect_api_rest_secret_key" //process.env.JWT_SECRET_KEY;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Ajusta la ruta relativa 
+dotenv.config({ path: path.resolve(__dirname, "../../.env") });
+
+const secret_key = process.env.JWT_SECRET_KEY; 
 //console.log(secret_key);
-
 
 // Función para generar un token JWT
 export const generateToken = (userData) => {
@@ -11,6 +19,3 @@ export const generateToken = (userData) => {
   const expiration = { expiresIn: "1h" };
   return jwt.sign(user, secret_key, expiration);
 };
-
-//const token = generateToken({ id: 1, email: "test@gmail.com" });
-//console.log("Generated Token:", token);

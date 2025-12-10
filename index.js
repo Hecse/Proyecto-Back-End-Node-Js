@@ -19,7 +19,7 @@ app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
 app.use("/auth", authRouter)
-app.use(authentication)
+//app.use(authentication)
 
 // Middleware de aplicación para ver el método y la url
 app.use((req, res, next) => {
